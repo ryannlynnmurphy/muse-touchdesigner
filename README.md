@@ -21,4 +21,4 @@ The level is a visual control signal, **not** alpha, beta, or other brainwave ba
 
 ## TouchDesigner patch
 
-`MuseTouchDesigner.toe` is the saved TouchDesigner patch. The launcher opens this file when it starts TouchDesigner. If TouchDesigner is already open, it leaves the current window in place.
+`MuseTouchDesigner.toe` is the GitHub copy of the saved TouchDesigner patch. On this computer, the launcher opens whichever is newer: `Desktop/NewProject.toe` or `MuseTouchDesigner.toe`. This keeps later saves in the active Desktop project from being replaced by the older backup. If the Muse TouchDesigner project is already open, the launcher uses that window.

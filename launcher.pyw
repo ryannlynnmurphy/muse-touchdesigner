@@ -20,7 +20,15 @@ from tkinter import messagebox
 ROOT = Path(__file__).resolve().parent
 LOG_FILE = ROOT / "launcher.log"
 BRIDGE = ROOT / "eeg_to_osc.py"
-PROJECT = ROOT / "MuseTouchDesigner.toe"
+
+
+def select_project():
+    candidates = [Path.home() / "Desktop" / "NewProject.toe", ROOT / "MuseTouchDesigner.toe"]
+    available = [path for path in candidates if path.is_file()]
+    return max(available, key=lambda path: path.stat().st_mtime) if available else candidates[-1]
+
+
+PROJECT = select_project()
 TOUCHDESIGNER = Path(r"C:\Program Files\Derivative\TouchDesigner\bin\TouchDesigner.exe")
 PYTHON = Path(sys.executable).with_name("python.exe")
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
@@ -267,7 +275,7 @@ class Launcher(tk.Tk):
             )
             self.touchdesigner_pid = self.touchdesigner.pid
             self._status("touchdesigner", "Opening", YELLOW)
-            self._log("Opening the saved TouchDesigner project.")
+            self._log(f"Opening saved TouchDesigner project: {PROJECT.name}.")
         except OSError as exc:
             self._status("touchdesigner", "Error", RED)
             self._log(f"Could not open TouchDesigner: {exc}")
