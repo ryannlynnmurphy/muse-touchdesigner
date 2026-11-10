@@ -2,7 +2,13 @@
 
 BlueMuse streams Muse headset EEG over Lab Streaming Layer (LSL). `eeg_to_osc.py` converts recent AF7 signal variation into an OSC level for TouchDesigner.
 
-## Run
+## One-click launcher
+
+On Windows, double-click `Launch Muse.cmd` (or the desktop shortcut). The control panel starts BlueMuse, the EEG bridge, and the saved TouchDesigner project. It shows headset connection and signal level. If the bridge exits unexpectedly, it retries. **Stop all** or closing the control panel stops the bridge, sends a zero OSC level, requests BlueMuse shutdown, and asks the Muse TouchDesigner project to close normally so it can prompt you to save unsaved work. An already-open unrelated TouchDesigner project is left alone. If a manual EEG bridge is already running, close that PowerShell bridge with Ctrl+C and click **Start all** in the launcher.
+
+Python with `pylsl` and `python-osc`, BlueMuse, and TouchDesigner must be installed on the computer. Use `py -m pip install pylsl python-osc` once if needed.
+
+## Manual run
 
 1. Open BlueMuse, connect the headset, and enable its EEG stream. In PowerShell, run `Start-Process 'bluemuse://start?startall'` to tell BlueMuse to start streaming when it discovers a Muse during this app session.
 2. Install Python dependencies once: `py -m pip install pylsl python-osc`
@@ -15,4 +21,4 @@ The level is a visual control signal, **not** alpha, beta, or other brainwave ba
 
 ## TouchDesigner patch
 
-The `.toe` project file is the TouchDesigner patch. Open it in TouchDesigner after cloning this repository. Keep `eeg_to_osc.py` running in a separate PowerShell window.
+`MuseTouchDesigner.toe` is the saved TouchDesigner patch. The launcher opens this file when it starts TouchDesigner. If TouchDesigner is already open, it leaves the current window in place.
